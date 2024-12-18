@@ -1,11 +1,15 @@
 const express = require("express"); 
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
-
 dotenv.config();
+const connectMongoDb = require("./init/mongodb");
+
 
 // init app
 const app = express();
+
+// connect to database
+connectMongoDb();
 
 // third party middleware
 app.use(express.json({limit: "500mb"}));

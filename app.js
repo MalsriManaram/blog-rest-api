@@ -5,6 +5,7 @@ dotenv.config();
 const connectMongoDb = require("./init/mongodb");
 const {authRoute} = require("./routes");
 const morgan = require("morgan");
+const {errorHandler} = require("./middlewares");
 
 
 // init app
@@ -18,7 +19,11 @@ app.use(express.json({limit: "500mb"}));
 app.use(bodyParser.urlencoded({limit: "500mb", extended: true}));
 app.use(morgan("dev")); // use to log (show) requests to the console
 
+
 // route section 
 app.use("/api/v1/auth", authRoute);
+
+// error handler middleware
+app.use(errorHandler);
 
 module.exports = app;

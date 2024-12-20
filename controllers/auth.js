@@ -5,22 +5,13 @@ const signup = async (req, res, next) =>{
     try{
         // Extract data from the request body
         const { name, email, password, role } = req.body;
-        if (!name){
-            res.code = 400;
-            throw new Error("Name is required");
+
+        // check if email already exist
+        const isEmailExist = await User.findOne({email});
+        if(isEmailExist) {
+            res.code = 400; // 400 -> its a bad request from the client side
+            throw new Error("Email already exist");
         };
-        if (!email){
-            res.code = 400;
-            throw new Error("Email is required");
-        };
-        if (!password){
-            res.code = 400;
-            throw new Error("Password is required");
-        }
-        if(password.length < 8){
-            res.code = 400;
-            throw new Error("Password must be at least 8 characters long");
-        }
 
         // Create a new user instance
         const newUser = new User({ name, email, password, role });

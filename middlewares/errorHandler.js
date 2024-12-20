@@ -1,5 +1,3 @@
-const { stack } = require("../app");
-
 // use to add all the error handlers
 const errorHandler = (error, req, res, next) => {
     const code = res.code ? res.code : 500;
